@@ -43,7 +43,7 @@ public class MainActivity extends Activity {
 	private void upgrade_app() {
 		UpdateManager manager = new UpdateManager(this);
 		// 检查软件更新
-		manager.checkUpdate();
+		// manager.checkUpdate();
 	}
 
 	private void load_listview() {

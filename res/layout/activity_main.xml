@@ -16,6 +16,7 @@
     <ListView
         android:id="@+id/list_view_lesson"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true" />
 
 </RelativeLayout>

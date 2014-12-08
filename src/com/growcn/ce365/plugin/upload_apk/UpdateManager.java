@@ -9,11 +9,15 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.HashMap;
 
+import org.apache.http.Header;
 import org.json.JSONObject;
 
 import com.growcn.ce365.R;
 import com.growcn.ce365.util.AppConstant.Config;
 import com.growcn.ce365.util.AppConstant.Dir;
+import com.growcn.ce365.util.AppConstant.ServerApi;
+import com.loopj.android.http.AsyncHttpClient;
+import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -29,6 +33,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -55,7 +60,7 @@ public class UpdateManager {
 	// 地本的包名
 	private String packageName;
 	private String mJump_activity;
-	private VersionCheck mVercheck;
+	public VersionCheck mVercheck;
 	// private String mSavePath;
 	private boolean isShowToast = true;
 
@@ -106,8 +111,8 @@ public class UpdateManager {
 		// 获取包名
 		getVersionCode(mContext);
 		// 查看服务版本
-		mVercheck = VersionCheck.getData(packageName);
-
+		// mVercheck = VersionCheck.getData(packageName);
+		getVersionData(packageName);
 		VersionCheck mVercheck = new VersionCheck();
 		mVercheck.name = server_name;
 		mVercheck.code = server_code;
@@ -122,8 +127,38 @@ public class UpdateManager {
 		getVersionCode(mContext);
 
 		// 查看服务版本
-		mVercheck = VersionCheck.getData(packageName);
+		// mVercheck = VersionCheck.getData(packageName);
+		mVercheck = new VersionCheck();
+		getVersionData(packageName);
 		mSavePath = save_path(mContext);
+
+		// Log.e(Config.TAG, "..ddddddd...mVercheck.code:" + mVercheck.code);
+	}
+
+	public void getVersionData(String packageName) {
+		String requireUrl = ServerApi.uploadVerson(packageName);
+		// requireUrl = LessonAll();
+		// Log.e(Config.TAG, "requireUrl:" + requireUrl);
+
+		AsyncHttpClient client = new AsyncHttpClient();
+		// client = BaseClient.get_client_info(this);
+		client.get(requireUrl, new AsyncHttpResponseHandler() {
+			@Override
+			public void onSuccess(String response) {
+				// Log.e(Config.TAG, "update:" + response);
+				VersionCheck mVK = VersionCheck.parseJSON(response);
+				// Log.e(Config.TAG, ".mVK.code:" + mVK.code);
+				mVercheck.code = mVK.code;
+				checkUpdate();
+			}
+
+			@Override
+			public void onFailure(int statusCode, Header[] headers,
+					byte[] responseBody, Throwable error) {
+				// ToastShow("网络异常！！");
+			}
+		});
+
 	}
 
 	/**
@@ -155,9 +190,15 @@ public class UpdateManager {
 	 */
 	private boolean isUpdate() {
 		// 版本判断
+		// try {
+		// Log.e(Config.TAG, ".....versionCode:" + versionCode);
+		// Log.e(Config.TAG, ".....mVercheck.code:" + mVercheck.code);
 		if (mVercheck.code > versionCode) {
 			return true;
 		}
+		// } catch (Exception e) {
+		// Log.e(Config.TAG, "..dd..." + e.getMessage());
+		// }
 
 		return false;
 	}
@@ -182,16 +223,17 @@ public class UpdateManager {
 	 */
 	private void getVersionCode(Context context) {
 		PackageInfo info;
-
 		try {
 			info = mContext.getPackageManager().getPackageInfo(
 					mContext.getPackageName(), 0);
 			String versionName = info.versionName; // 当前应用的版本名称
-			packageName = info.packageName; // 当前版本的包名
-			versionCode = info.versionCode; // 当前版本的版本号
+			this.packageName = info.packageName; // 当前版本的包名
+			this.versionCode = info.versionCode; // 当前版本的版本号
+			// Log.e(Config.TAG, "1packageName :" + packageName);
+			// Log.e(Config.TAG, "1versionCode :" + versionCode);
 		} catch (NameNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			// Log.e(Config.TAG, "getVersionCode error :" + e.getMessage());
 		}
 	}
 
