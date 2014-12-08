@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/listview_headines_table"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/white" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <!-- 广告图片 -->
+
+
+        <!--
+             <include
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            layout="@layout/adv_pic_image" />
+        -->
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout1"
+            android:layout_width="fill_parent"
+            android:layout_height="78dip" >
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="200dip"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/headlineContent"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="10dp"
+                android:singleLine="true"
+                android:text="这是标题"
+                android:textSize="16sp" />
+
+            <!--
+                 <com.loopj.android.image.SmartImageView
+                android:id="@+id/headlinePicture_url"
+                android:layout_width="70dip"
+                android:layout_height="70dip"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/pic_loading" />
+            -->
+            <!--
+                 <TextView
+                android:id="@+id/headlineContent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/headlineTitle"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="10dp"
+                android:layout_toRightOf="@+id/headlinePicture_url"
+                android:maxLines="2"
+                android:singleLine="false"
+                android:text="这个摘要这个摘要这个摘要这个摘要这个摘要这个摘要这个摘要这个摘要这个摘要"
+                android:textColor="@color/darkgray"
+                android:textSize="13sp" />
+            -->
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>
