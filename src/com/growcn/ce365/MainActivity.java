@@ -20,6 +20,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -36,10 +37,13 @@ public class MainActivity extends Activity {
 		// 检查升级
 		load_listview();
 
-		// UpdateManager manager = new UpdateManager(this);
-		// // 检查软件更新
-		// manager.checkUpdate();
+		// upgrade_app();
+	}
 
+	private void upgrade_app() {
+		UpdateManager manager = new UpdateManager(this);
+		// 检查软件更新
+		manager.checkUpdate();
 	}
 
 	private void load_listview() {
@@ -81,6 +85,22 @@ public class MainActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
+	}
+
+	// 通过点击了哪个菜单子项来改变Activity的标题
+	// @Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+
+		switch (item.getItemId()) {
+		case R.id.action_settings:
+			Log.e(Config.TAG, "........settions");
+			break;
+		case R.id.action_upgrade:
+			upgrade_app();
+			break;
+		}
+		return true;
+
 	}
 
 }

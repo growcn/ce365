@@ -2,7 +2,8 @@
 <resources>
 
     <string name="app_name">疯狂英语365句</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">设置</string>
+    <string name="action_upgrade">更新</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_paragraph">ParagraphActivity</string>
 
