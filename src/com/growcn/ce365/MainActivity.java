@@ -9,7 +9,7 @@ import com.growcn.ce365.adapter.LessonAdapter;
 import com.growcn.ce365.base.GrowcnBaseActivity;
 import com.growcn.ce365.internal.BaseClient;
 import com.growcn.ce365.model.Lesson;
-import com.growcn.ce365.plugin.upload_apk.UpdateManager;
+import com.growcn.ce365.plugin.upload_apk.RequestUpgradeSoft;
 import com.growcn.ce365.util.AppConstant.Config;
 import com.growcn.ce365.util.AppConstant.ServerApi;
 import com.loopj.android.http.AsyncHttpClient;
@@ -23,6 +23,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.Toast;
+import com.growcn.ce365.plugin.upload_apk.RequestUpgradeSoft;
 
 public class MainActivity extends Activity {
 
@@ -37,11 +38,13 @@ public class MainActivity extends Activity {
 		// 检查升级
 		load_listview();
 
-		// upgrade_app();
+		upgrade_app(false);
 	}
 
-	private void upgrade_app() {
-		UpdateManager manager = new UpdateManager(this);
+	private void upgrade_app(Boolean mBoolean) {
+		new RequestUpgradeSoft(this, mBoolean).start();
+
+		// UpdateManager manager = new UpdateManager(this);
 		// 检查软件更新
 		// manager.checkUpdate();
 	}
@@ -96,11 +99,10 @@ public class MainActivity extends Activity {
 			Log.e(Config.TAG, "........settions");
 			break;
 		case R.id.action_upgrade:
-			upgrade_app();
+			upgrade_app(true);
 			break;
 		}
 		return true;
 
 	}
-
 }
