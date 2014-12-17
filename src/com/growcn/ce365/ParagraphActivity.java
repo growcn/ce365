@@ -17,6 +17,7 @@ import com.growcn.ce365.util.AppConstant.ServerApi;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
@@ -29,6 +30,7 @@ public class ParagraphActivity extends GrowcnBaseActivity {
 	private ParagraphAdapter mAdapter;
 	private List<Paragraph> mArrayList = new ArrayList<Paragraph>();
 	private String lesson_id;
+	private MediaPlayer mMediaPlayer; //= new MediaPlayer();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +47,9 @@ public class ParagraphActivity extends GrowcnBaseActivity {
 	}
 
 	private void load_listview() {
-		mListView = (ListView) findViewById(R.id.list_view_lesson);
-		mAdapter = new ParagraphAdapter(this, mArrayList, mListView);
+		mListView = (ListView) findViewById(R.id.list_view_paragraph);
+		mAdapter = new ParagraphAdapter(this, mArrayList, mListView,
+				mMediaPlayer);
 		mListView.setAdapter(mAdapter);
 		networkReques();
 	}

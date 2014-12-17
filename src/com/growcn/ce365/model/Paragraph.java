@@ -15,6 +15,7 @@ import com.growcn.ce365.util.AppConstant.Config;
 public class Paragraph {
 	public String name;
 	public String translation;
+	public String token_name;
 	public String audio_url;
 
 	public Paragraph getInstance(String notice) {
