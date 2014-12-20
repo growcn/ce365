@@ -1,5 +1,6 @@
 package com.growcn.ce365.adapter;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import com.growcn.ce365.model.Paragraph;
 import com.growcn.ce365.util.AppConstant.Config;
 import com.growcn.ce365.util.AppConstant.Dir;
 import com.growcn.ce365.util.Download;
+import com.growcn.ce365.util.GrowcnAudio;
 import com.loopj.android.image.SmartImageView;
 
 import android.content.Context;
@@ -54,10 +56,11 @@ public class ParagraphAdapter extends BaseAdapter {
 		ViewHolder mViewHodler = null;
 		if (convertView == null) {
 			mViewHodler = new ViewHolder();
-			convertView = layoutInflater.inflate(R.layout.lesson_item, null);
+			convertView = layoutInflater.inflate(R.layout.garagraph_item, null);
 			// convertView.setTag(position);
-			mViewHodler.mTitle = (TextView) convertView
-					.findViewById(R.id.title);
+			mViewHodler.mName = (TextView) convertView.findViewById(R.id.name);
+			mViewHodler.mTranslation = (TextView) convertView
+					.findViewById(R.id.translation);
 
 			convertView.setTag(mViewHodler);// 绑定ViewHolder对象
 		} else {
@@ -67,7 +70,9 @@ public class ParagraphAdapter extends BaseAdapter {
 		Paragraph mData = data.get(position);
 		final String audio_url = mData.audio_url;
 		final String DL_file_name = mData.token_name + ".mp3";
-		mViewHodler.mTitle.setText(mData.name);
+		mViewHodler.mName.setText(mData.name);
+		mViewHodler.mTranslation.setText(mData.translation);
+
 		convertView.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -79,112 +84,14 @@ public class ParagraphAdapter extends BaseAdapter {
 		return convertView;
 	}
 
-	private void playAudio(String audio_url) {
-
-		try {
-			Uri load_file = Uri.parse(audio_url);
-			MediaPlayer mp = MediaPlayer.create(mContext, load_file);
-			mp.setLooping(false);
-			mp.start();
-			mp.setOnCompletionListener(new OnCompletionListener() {
-				@Override
-				public void onCompletion(MediaPlayer mp) {
-					mp.stop();
-					mp.release();
-				}
-			});
-		} catch (Exception e) {
-			Log.e(Config.TAG, "playAudio:" + e.getMessage());
-			// showToast("找不到发音文件", "long");
-		}
-
-		//
-		// if (mMediaPlayer == null) {
-		// mMediaPlayer = new MediaPlayer();
-		// }
-		//
-		// try {
-		// mMediaPlayer.isPlaying();
-		// } catch (IllegalStateException e) {
-		// mMediaPlayer = null;
-		// mMediaPlayer = new MediaPlayer();
-		// }
-		//
-		// try {
-		// mMediaPlayer.setDataSource(audio_url);
-		// mMediaPlayer.prepare();
-		// mMediaPlayer.start();
-		// } catch (IllegalArgumentException e) {
-		// e.printStackTrace();
-		// Log.e(Config.TAG,
-		// "mMediaPlayer IllegalArgumentException:" + e.getMessage());
-		// } catch (IllegalStateException e) {
-		// e.printStackTrace();
-		// Log.e(Config.TAG,
-		// "mMediaPlayer IllegalStateException:" + e.getMessage());
-		// } catch (IOException e) {
-		// e.printStackTrace();
-		// Log.e(Config.TAG, "mMediaPlayer IOException:" + e.getMessage());
-		// }
-		// mMediaPlayer.setOnCompletionListener(new OnCompletionListener() {
-		// @Override
-		// public void onCompletion(MediaPlayer mp) {
-		// mp.stop();
-		// mp.release();
-		// mp = null;
-		// }
-		// });
-	}
-
 	private void DLplayAudio(String audio_url, final String dl_filename) {
-		Download d = new Download(1, audio_url, Dir.DLAudio(), dl_filename);
-		d.setOnDownloadListener(new Download.OnDownloadListener() {
-			@Override
-			public void onSuccess(int downloadId) {
-				System.out.println(downloadId + "下载成功");
-				String file = Dir.DLAudio() + dl_filename;
-
-				// Log.e(Config.TAG, "......file:" + file);
-				playAudio(file);
-			}
-
-			@Override
-			public void onStart(int downloadId, long fileSize) {
-				System.out.println(downloadId + "开始下载，文件大小：" + fileSize);
-			}
-
-			@Override
-			public void onPublish(int downloadId, long size) {
-				System.out.println("更新文件" + downloadId + "大小：" + size);
-			}
-
-			@Override
-			public void onPause(int downloadId) {
-				System.out.println("暂停下载" + downloadId);
-			}
-
-			@Override
-			public void onGoon(int downloadId, long localSize) {
-				System.out.println("继续下载" + downloadId);
-			}
-
-			@Override
-			public void onError(int downloadId) {
-				System.out.println("下载出错" + downloadId);
-			}
-
-			@Override
-			public void onCancel(int downloadId) {
-				System.out.println("取消下载" + downloadId);
-			}
-
-		});
-
-		d.start(false);
+		GrowcnAudio.getInstance(mContext).onlinePlay(audio_url, Dir.DLAudio(),
+				dl_filename);
 	}
 
 	public final class ViewHolder {
-		public TextView mTitle;
+		public TextView mName;
+		public TextView mTranslation;
 	}
 
 	/**

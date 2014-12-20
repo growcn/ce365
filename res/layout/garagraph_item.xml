@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/listview_headines_table"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/white" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+
+        <!-- 广告图片 -->
+
+
+        <!--
+             <include
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            layout="@layout/adv_pic_image" />
+        -->
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="78dip" >
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/headlineContent"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginTop="10dp"
+                android:text="英文"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/translation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/name"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="6dp"
+                android:maxLines="2"
+                android:singleLine="false"
+                android:text="翻译"
+                android:textSize="13sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</RelativeLayout>
