@@ -25,7 +25,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 import com.growcn.ce365.plugin.upload_apk.RequestUpgradeSoft;
 
-public class MainActivity extends Activity {
+public class MainActivity extends GrowcnBaseActivity {
 
 	private ListView mListView;
 	private LessonAdapter mLessonAdapter;
@@ -33,20 +33,13 @@ public class MainActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		setSwipeBackEnable(false);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		// 检查升级
 		load_listview();
 
 		upgrade_app(false);
-	}
-
-	private void upgrade_app(Boolean mBoolean) {
-		new RequestUpgradeSoft(this, mBoolean).start();
-
-		// UpdateManager manager = new UpdateManager(this);
-		// 检查软件更新
-		// manager.checkUpdate();
 	}
 
 	private void load_listview() {
@@ -79,30 +72,4 @@ public class MainActivity extends Activity {
 		});
 	}
 
-	private void ToastShow(String msg) {
-		Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-	}
-
-	// @Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-
-	// 通过点击了哪个菜单子项来改变Activity的标题
-	// @Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-
-		switch (item.getItemId()) {
-		case R.id.action_settings:
-			Log.e(Config.TAG, "........settions");
-			break;
-		case R.id.action_upgrade:
-			upgrade_app(true);
-			break;
-		}
-		return true;
-
-	}
 }

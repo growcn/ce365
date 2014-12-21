@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#fff"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="48dip"
+            android:background="#f62222" >
+
+            <TextView
+                android:id="@+id/base_titile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="@string/app_name"
+                android:textColor="#fff"
+                android:textSize="20dip" />
+
+            <com.loopj.android.image.SmartImageView
+                android:id="@+id/imgview_browser_back_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/base_action_bar_back_normal"
+                android:paddingTop="2dip"
+                android:visibility="gone" />
+
+            <!--
+                  android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+            -->
+
+
+            <!--
+                 <com.loopj.android.image.SmartImageView
+                android:id="@+id/slide_menu_icon_right"
+                android:layout_width="wrap_content"
+                android:layout_height="48dip"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/night_top_navigation_infoicon"
+                android:paddingTop="2dip" />
+            -->
+        </RelativeLayout>
+    </FrameLayout>
+
+</RelativeLayout>

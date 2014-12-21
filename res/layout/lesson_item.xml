@@ -31,10 +31,11 @@
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/headlineContent"
                 android:layout_alignParentTop="true"
-                android:layout_marginTop="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="16dp"
                 android:singleLine="true"
                 android:text="这是标题"
-                android:textSize="16sp" />
+                android:textSize="16dp" />
 
             <!--
                  <com.loopj.android.image.SmartImageView

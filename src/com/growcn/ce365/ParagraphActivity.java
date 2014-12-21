@@ -7,6 +7,7 @@ import org.apache.http.Header;
 
 import com.growcn.ce365.adapter.LessonAdapter;
 import com.growcn.ce365.adapter.ParagraphAdapter;
+import com.growcn.ce365.base.ActivityUtil;
 import com.growcn.ce365.base.GrowcnBaseActivity;
 import com.growcn.ce365.internal.BaseClient;
 import com.growcn.ce365.model.Lesson;
@@ -30,12 +31,16 @@ public class ParagraphActivity extends GrowcnBaseActivity {
 	private ParagraphAdapter mAdapter;
 	private List<Paragraph> mArrayList = new ArrayList<Paragraph>();
 	private String lesson_id;
-	private MediaPlayer mMediaPlayer; //= new MediaPlayer();
+	private MediaPlayer mMediaPlayer; // = new MediaPlayer();
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		setSwipeBackEnable(true);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_paragraph);
+
+		ActivityUtil mActivityUtil = new ActivityUtil(this);
+		mActivityUtil.setBrowserBackButton();
 
 		initIntent();
 		load_listview();
@@ -76,17 +81,6 @@ public class ParagraphActivity extends GrowcnBaseActivity {
 						ToastShow("网络异常！！");
 					}
 				});
-	}
-
-	private void ToastShow(String msg) {
-		Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
-	}
-
-	// @Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
 	}
 
 }
