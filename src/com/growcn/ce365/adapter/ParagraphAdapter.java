@@ -5,14 +5,17 @@ import java.io.IOException;
 import java.util.List;
 
 import com.growcn.ce365.R;
+import com.growcn.ce365.base.ActivityUtil;
 import com.growcn.ce365.model.Lesson;
 import com.growcn.ce365.model.Paragraph;
+import com.growcn.ce365.service.PlayerService;
 import com.growcn.ce365.util.AppConstant.Config;
 import com.growcn.ce365.util.AppConstant.Dir;
 import com.growcn.ce365.util.Download;
 import com.growcn.ce365.util.GrowcnAudio;
 import com.loopj.android.image.SmartImageView;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -24,6 +27,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -36,17 +40,48 @@ public class ParagraphAdapter extends BaseAdapter {
 	LayoutInflater layoutInflater;
 	private ListView mListView;
 	private Context mContext;
-	protected View.OnClickListener mOnClickListener;
-	protected MediaPlayer mMediaPlayer;
+	private Activity mActivity;
 
-	public ParagraphAdapter(Context context, List<Paragraph> data,
-			ListView mListView, MediaPlayer mMediaPlayer) {
-		layoutInflater = (LayoutInflater) context
+	private ImageView mPlay_control;
+	protected View.OnClickListener mOnClickListener;
+
+	public ParagraphAdapter(Activity mActivity, List<Paragraph> data,
+			ListView mListView, ImageView mPlay_control) {
+		this.mContext = mActivity;
+		this.mActivity = mActivity;
+		layoutInflater = (LayoutInflater) mContext
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		this.data = data;
 		this.mListView = mListView;
-		this.mContext = context;
-		this.mMediaPlayer = mMediaPlayer;
+
+		this.mPlay_control = mPlay_control;
+		load_play();
+	}
+
+	public void load_play() {
+		mPlay_control.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				play_word();
+			}
+		});
+	}
+
+	public void play_word() {
+
+		Intent intent = new Intent();
+		intent.setClass(mActivity, PlayerService.class);
+
+		// intent.putExtra("mp3Info", mp3Info);
+		// intent.putExtra("MSG", AppConstant.PlayerMsg.PLAY_MSG);
+		mContext.startService(intent);
+
+		// for (int i = 0; i < data.size(); i++) {
+		// Paragraph mData = data.get(i);
+		// final String audio_url = mData.audio_url;
+		// final String DL_file_name = mData.token_name + ".mp3";
+		// DLplayAudio(audio_url, DL_file_name);
+		// }
 	}
 
 	@Override
@@ -69,7 +104,7 @@ public class ParagraphAdapter extends BaseAdapter {
 
 		Paragraph mData = data.get(position);
 		final String audio_url = mData.audio_url;
-		final String DL_file_name = mData.token_name + ".mp3";
+		final String DL_file_name = mData.uuid + ".mp3";
 		mViewHodler.mName.setText(mData.name);
 		mViewHodler.mTranslation.setText(mData.translation);
 

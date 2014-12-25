@@ -54,12 +54,12 @@ public class LessonAdapter extends BaseAdapter {
 		}
 
 		Lesson mLesson = data.get(position);
-		final String Lesson_id = mLesson.id;
+		final String LessonUuid = mLesson.uuid;
 		mViewHodler.mTitle.setText(mLesson.name);
 		convertView.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				OpenIntent.inParagraphActivity(mContext, Lesson_id);
+				OpenIntent.inParagraphActivity(mContext, LessonUuid);
 			}
 		});
 		return convertView;

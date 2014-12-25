@@ -13,23 +13,37 @@ import com.google.gson.Gson;
 import com.growcn.ce365.util.AppConstant.Config;
 
 public class Paragraph {
+	public int id;
 	public String name;
 	public String translation;
-	public String token_name;
+	public String lesson_uuid;
+	public String uuid;
+	public int sort;
 	public String audio_url;
+	public int lastmodifytime;
 
-	public Paragraph getInstance(String notice) {
-		return new Gson().fromJson(notice, Paragraph.class);
+	public Paragraph getInstance(String mParagraph, String LessonUuid) {
+		Paragraph msParagraph = new Gson()
+				.fromJson(mParagraph, Paragraph.class);
+		if (LessonUuid != null) {
+			msParagraph.lesson_uuid = LessonUuid;
+		}
+		return msParagraph;
 	}
 
-	public static List<Paragraph> parseJSON(String response) {
-		Log.e(Config.TAG, "json" + response);
+	public Paragraph getInstance(String mParagraph) {
+		return new Gson().fromJson(mParagraph, Paragraph.class);
+	}
+
+	public static List<Paragraph> parseJSON(String response, String LessonUuid) {
+		// Log.e(Config.TAG, "json" + response);
 		List<Paragraph> mList = new ArrayList<Paragraph>();
 		try {
 			JSONArray array = new JSONArray(response);
 			for (int i = 0; i < array.length(); i++) {
 				JSONObject json = array.getJSONObject(i);
-				mList.add(new Paragraph().getInstance(json.toString()));
+				mList.add(new Paragraph().getInstance(json.toString(),
+						LessonUuid));
 			}
 			return mList;
 		} catch (JSONException e) {

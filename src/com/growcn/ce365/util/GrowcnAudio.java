@@ -28,6 +28,10 @@ public class GrowcnAudio {
 		return _instance;
 	}
 
+	
+	
+	
+	
 	/**
 	 * 
 	 * 下载并播放mp3文件

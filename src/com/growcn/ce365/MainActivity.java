@@ -7,6 +7,7 @@ import org.apache.http.Header;
 
 import com.growcn.ce365.adapter.LessonAdapter;
 import com.growcn.ce365.base.GrowcnBaseActivity;
+import com.growcn.ce365.db.LessonDb;
 import com.growcn.ce365.internal.BaseClient;
 import com.growcn.ce365.model.Lesson;
 import com.growcn.ce365.plugin.upload_apk.RequestUpgradeSoft;
@@ -36,40 +37,44 @@ public class MainActivity extends GrowcnBaseActivity {
 		setSwipeBackEnable(false);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		// 检查升级
 		load_listview();
 
-		upgrade_app(false);
 	}
 
 	private void load_listview() {
 		mListView = (ListView) findViewById(R.id.list_view_lesson);
 		mLessonAdapter = new LessonAdapter(this, mArrayList, mListView);
 		mListView.setAdapter(mLessonAdapter);
-		networkReques();
+		// networkReques();
+		getLoactionDB();
 	}
 
-	public void networkReques() {
-		AsyncHttpClient client = new AsyncHttpClient();
-		client = BaseClient.get_client_info(this);
-		client.get(ServerApi.LessonAll(), new AsyncHttpResponseHandler() {
-			@Override
-			public void onSuccess(String response) {
-				List<Lesson> listLesson = Lesson.parseJSON(response);
-				if (listLesson.size() != 0) {
-					mArrayList.addAll(listLesson);
-					mLessonAdapter.notifyDataSetChanged();
-				} else {
-					ToastShow("无新的数据！！");
-				}
-			}
-
-			@Override
-			public void onFailure(int statusCode, Header[] headers,
-					byte[] responseBody, Throwable error) {
-				ToastShow("网络异常！！");
-			}
-		});
+	public void getLoactionDB() {
+		List<Lesson> listLesson = LessonDb.findAll();
+		mArrayList.addAll(listLesson);
 	}
+
+	// public void networkReques() {
+	// AsyncHttpClient client = new AsyncHttpClient();
+	// client = BaseClient.get_client_info(this);
+	// client.get(ServerApi.LessonAll(), new AsyncHttpResponseHandler() {
+	// @Override
+	// public void onSuccess(String response) {
+	// List<Lesson> listLesson = Lesson.parseJSON(response);
+	// if (listLesson.size() != 0) {
+	// mArrayList.addAll(listLesson);
+	// mLessonAdapter.notifyDataSetChanged();
+	// } else {
+	// ToastShow("无新的数据！！");
+	// }
+	// }
+	//
+	// @Override
+	// public void onFailure(int statusCode, Header[] headers,
+	// byte[] responseBody, Throwable error) {
+	// ToastShow("网络异常！！");
+	// }
+	// });
+	// }
 
 }
