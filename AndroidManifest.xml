@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.growcn.ce365"
-    android:versionCode="3"
+    android:versionCode="4"
     android:versionName="0.0.1内测版" >
 
     <uses-sdk
@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.growcn.ce365.MainActivity"
+            android:name="com.growcn.ce365.LessonActivity"
             android:screenOrientation="portrait" >
         </activity>
         <activity

@@ -26,7 +26,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 import com.growcn.ce365.plugin.upload_apk.RequestUpgradeSoft;
 
-public class MainActivity extends GrowcnBaseActivity {
+public class LessonActivity extends GrowcnBaseActivity {
 
 	private ListView mListView;
 	private LessonAdapter mLessonAdapter;
@@ -36,7 +36,7 @@ public class MainActivity extends GrowcnBaseActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		setSwipeBackEnable(false);
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.activity_lesson);
 		load_listview();
 
 	}
