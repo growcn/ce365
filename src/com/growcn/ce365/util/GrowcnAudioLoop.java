@@ -12,18 +12,18 @@ import android.media.MediaPlayer.OnCompletionListener;
 import android.net.Uri;
 import android.util.Log;
 
-public class GrowcnAudio {
-	private static GrowcnAudio _instance = null;
+public class GrowcnAudioLoop {
+	private static GrowcnAudioLoop _instance = null;
 	private Context mContext;
 
-	public GrowcnAudio(Context context) {
+	public GrowcnAudioLoop(Context context) {
 		this.mContext = context;
 	}
 
 	// initialize
-	synchronized public static GrowcnAudio getInstance(Context context) {
+	synchronized public static GrowcnAudioLoop getInstance(Context context) {
 		if (_instance == null) {
-			_instance = new GrowcnAudio(context);
+			_instance = new GrowcnAudioLoop(context);
 		}
 		return _instance;
 	}
@@ -47,7 +47,7 @@ public class GrowcnAudio {
 	public void onlinePlay(String url, String localPath, String DLname) {
 		String audio_url = Dir.DLAudio() + DLname;
 		if (new File(audio_url).exists()) {
-			GrowcnAudio.getInstance(mContext).play(audio_url);
+			GrowcnAudioLoop.getInstance(mContext).play(audio_url);
 		} else {
 			down_and_play(url, localPath, DLname);
 		}
@@ -56,7 +56,7 @@ public class GrowcnAudio {
 	public void AuidoPath(String url, String localPath, String DLname) {
 		String audio_url = Dir.DLAudio() + DLname;
 		if (new File(audio_url).exists()) {
-			GrowcnAudio.getInstance(mContext).play(audio_url);
+			GrowcnAudioLoop.getInstance(mContext).play(audio_url);
 		} else {
 			down_and_play(url, localPath, DLname);
 		}

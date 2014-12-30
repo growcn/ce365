@@ -3,19 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context=".LessonActivity" >
+    tools:context=".ParagraphActivity" >
 
     <include
         android:id="@+id/head_view_bar"
         android:layout_width="fill_parent"
         android:layout_height="48dip"
         layout="@layout/head_view_bar" />
-
-    <ListView
-        android:id="@+id/list_view_lesson"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/head_view_bar" />
 
 </RelativeLayout>

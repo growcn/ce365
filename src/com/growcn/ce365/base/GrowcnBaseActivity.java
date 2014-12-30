@@ -32,6 +32,9 @@ public class GrowcnBaseActivity extends SwipeBackActivity {
 		case R.id.action_settings:
 			Log.e(Config.TAG, "........settions");
 			break;
+		case R.id.action_about:
+			OpenIntent.about(this);
+			break;
 		case R.id.action_upgrade:
 			upgrade_app(true);
 			break;

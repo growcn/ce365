@@ -50,9 +50,6 @@ public class BootStrapActivity extends GrowcnBaseActivity {
 
 		// 数库初始化
 		DBBaseHelper.init(this);
-
-		// 检查升级
-		upgrade_app(false);
 	}
 
 	public void auto_index() {

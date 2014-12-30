@@ -59,12 +59,12 @@ public class ParagraphAdapter extends BaseAdapter {
 	}
 
 	public void load_play() {
-		mPlay_control.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				play_word();
-			}
-		});
+//		mPlay_control.setOnClickListener(new OnClickListener() {
+//			@Override
+//			public void onClick(View v) {
+//				play_word();
+//			}
+//		});
 	}
 
 	public void play_word() {

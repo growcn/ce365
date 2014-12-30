@@ -14,9 +14,11 @@ import com.growcn.ce365.db.ParagraphDb;
 import com.growcn.ce365.internal.BaseClient;
 import com.growcn.ce365.model.Lesson;
 import com.growcn.ce365.model.Paragraph;
+import com.growcn.ce365.service.PlayerService;
 import com.growcn.ce365.util.AppConstant;
 import com.growcn.ce365.util.AppConstant.ActivityParams;
 import com.growcn.ce365.util.AppConstant.Config;
+import com.growcn.ce365.util.AppConstant.PlayerMsg;
 import com.growcn.ce365.util.AppConstant.ServerApi;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -24,8 +26,11 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -52,6 +57,7 @@ public class ParagraphActivity extends GrowcnBaseActivity {
 		mActivityUtil.setBrowserBackButton();
 
 		initIntent();
+		initViewPlay();
 		load_listview();
 	}
 
@@ -61,13 +67,32 @@ public class ParagraphActivity extends GrowcnBaseActivity {
 	}
 
 	private void load_listview() {
-		mPlay_control = (ImageView) findViewById(R.id.play_control);
 		mListView = (ListView) findViewById(R.id.list_view_paragraph);
 		mAdapter = new ParagraphAdapter(this, mArrayList, mListView,
 				mPlay_control);
 		mListView.setAdapter(mAdapter);
 		// networkReques();
 		getLoactionDB();
+	}
+
+	private void initViewPlay() {
+		mPlay_control = (ImageView) findViewById(R.id.play_control);
+		mPlay_control.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				play_list();
+			}
+		});
+	}
+
+	private void play_list() {
+		Log.e(Config.TAG, ".......sfsdfs");
+		Intent intent = new Intent();
+		intent.setClass(this, PlayerService.class);
+		intent.putExtra(ActivityParams.LessonUuid, lessonUuid);
+		intent.putExtra(ActivityParams.MSG, PlayerMsg.PLAY_MSG);
+		startService(intent);
+
 	}
 
 	public void getLoactionDB() {

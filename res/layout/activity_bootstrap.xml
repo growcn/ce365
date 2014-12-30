@@ -11,6 +11,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:adjustViewBounds="true"
+        android:background="@drawable/bootstrap"
         android:scaleType="fitXY" />
     <!-- android:background="@drawable/coupon_bg" -->
 
