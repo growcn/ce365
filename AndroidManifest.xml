@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.growcn.ce365"
-    android:versionCode="5"
+    android:versionCode="6"
     android:versionName="0.0.1内测版" >
 
     <uses-sdk
@@ -36,12 +36,23 @@
         </activity>
 
         <service android:name="com.growcn.ce365.service.PlayerService" />
+
+        <meta-data
+            android:name="UMENG_APPKEY"
+            android:value="54a2b624fd98c5c31c000dea" >
+        </meta-data>
+        <meta-data
+            android:name="UMENG_CHANNEL"
+            android:value="official" />
+        <!-- official -->
     </application>
 
     <!-- 访问internet权限 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
     <!-- 在SDCard中创建与删除文件权限 -->
     <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <!-- 往SDCard写入数据权限 -->

@@ -5,6 +5,7 @@ import com.growcn.ce365.plugin.swipeback.SwipeBackActivity;
 import com.growcn.ce365.plugin.upload_apk.RequestUpgradeSoft;
 import com.growcn.ce365.util.AppConstant.Config;
 import com.growcn.ce365.util.OpenIntent;
+import com.umeng.analytics.MobclickAgent;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,6 +15,19 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 public class GrowcnBaseActivity extends SwipeBackActivity {
+
+	
+	// @Override
+	public void onResume() {
+		super.onResume();
+		MobclickAgent.onResume(this); // 统计时长
+	}
+
+	// @Override
+	public void onPause() {
+		super.onPause();
+		MobclickAgent.onPause(this);
+	}
 
 	// @Override
 	public boolean onCreateOptionsMenu(Menu menu) {
