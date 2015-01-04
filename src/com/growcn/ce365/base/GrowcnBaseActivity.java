@@ -16,7 +16,6 @@ import android.widget.Toast;
 
 public class GrowcnBaseActivity extends SwipeBackActivity {
 
-	
 	// @Override
 	public void onResume() {
 		super.onResume();
@@ -44,7 +43,7 @@ public class GrowcnBaseActivity extends SwipeBackActivity {
 			OpenIntent.index(this);
 			break;
 		case R.id.action_settings:
-			Log.e(Config.TAG, "........settions");
+			OpenIntent.setting(this);
 			break;
 		case R.id.action_about:
 			OpenIntent.about(this);

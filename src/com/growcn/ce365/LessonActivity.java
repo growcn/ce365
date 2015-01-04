@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.http.Header;
 
 import com.growcn.ce365.adapter.LessonAdapter;
+import com.growcn.ce365.base.ActivityUtil;
 import com.growcn.ce365.base.GrowcnBaseActivity;
 import com.growcn.ce365.db.LessonDb;
 import com.growcn.ce365.internal.BaseClient;
@@ -17,6 +18,7 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 
 import android.os.Bundle;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
@@ -37,9 +39,14 @@ public class LessonActivity extends GrowcnBaseActivity {
 		setSwipeBackEnable(false);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_lesson);
+
+		ActivityUtil mActivityUtil = new ActivityUtil(this);
+		mActivityUtil.setBrowserSetting();
+
 		load_listview();
 		// 检查升级
 		upgrade_app(false);
+
 	}
 
 	private void load_listview() {

@@ -11,11 +11,11 @@
 
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="48dip"
+            android:layout_height="50dip"
             android:background="#f62222" >
 
             <TextView
-                android:id="@+id/base_titile"
+                android:id="@+id/bar_titile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
@@ -25,7 +25,7 @@
                 android:textSize="20dip" />
 
             <com.loopj.android.image.SmartImageView
-                android:id="@+id/imgview_browser_back_home"
+                android:id="@+id/bar_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -50,6 +50,16 @@
                 android:background="@drawable/night_top_navigation_infoicon"
                 android:paddingTop="2dip" />
             -->
+
+            <ImageView
+                android:id="@+id/bar_setting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/abc_ic_menu_moreoverflow_normal_holo_dark" />
         </RelativeLayout>
     </FrameLayout>
 

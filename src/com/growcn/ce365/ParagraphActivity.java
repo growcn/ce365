@@ -55,6 +55,7 @@ public class ParagraphActivity extends GrowcnBaseActivity {
 
 		ActivityUtil mActivityUtil = new ActivityUtil(this);
 		mActivityUtil.setBrowserBackButton();
+		mActivityUtil.setBrowserSetting();
 
 		initIntent();
 		initViewPlay();

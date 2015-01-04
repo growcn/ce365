@@ -38,7 +38,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 import com.google.ads.*;
 
-public class AboutActivity extends GrowcnBaseActivity {
+public class SettingActivity extends GrowcnBaseActivity {
 	private AdView adView;
 
 	@Override
@@ -49,7 +49,8 @@ public class AboutActivity extends GrowcnBaseActivity {
 
 		ActivityUtil mActivityUtil = new ActivityUtil(this);
 		mActivityUtil.setBrowserBackButton();
-		mActivityUtil.setTitle(this.getString(R.string.action_about));
+		mActivityUtil.setTitle(this.getString(R.string.action_settings));
+		// mActivityUtil.setBrowserSetting();
 
 		// 建立 adView
 		adView = new AdView(this, AdSize.BANNER,
