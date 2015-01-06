@@ -53,7 +53,7 @@ public class ParagraphActivity extends GrowcnBaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_paragraph);
 
-		ActivityUtil mActivityUtil = new ActivityUtil(this);
+		mActivityUtil = new ActivityUtil(this);
 		mActivityUtil.setBrowserBackButton();
 		mActivityUtil.setBrowserSetting();
 

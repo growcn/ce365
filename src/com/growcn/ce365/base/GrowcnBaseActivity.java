@@ -1,5 +1,8 @@
 package com.growcn.ce365.base;
 
+import com.google.ads.AdRequest;
+import com.google.ads.AdSize;
+import com.google.ads.AdView;
 import com.growcn.ce365.R;
 import com.growcn.ce365.plugin.swipeback.SwipeBackActivity;
 import com.growcn.ce365.plugin.upload_apk.RequestUpgradeSoft;
@@ -12,9 +15,12 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 public class GrowcnBaseActivity extends SwipeBackActivity {
+	protected ActivityUtil mActivityUtil;
+	protected AdView adView;
 
 	// @Override
 	public void onResume() {
@@ -26,6 +32,37 @@ public class GrowcnBaseActivity extends SwipeBackActivity {
 	public void onPause() {
 		super.onPause();
 		MobclickAgent.onPause(this);
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		if (mActivityUtil != null) {
+			ActivityUtil w = mActivityUtil;
+			w = null;
+			mActivityUtil = null;
+		}
+
+		if (adView != null) {
+			AdView w = adView;
+			w.removeAllViews();
+			w.destroy();
+			w = null;
+			adView = null;
+		}
+	}
+
+	// 载入广告
+	protected void loadAdMob() {
+		// 建立 adView
+		adView = new AdView(this, AdSize.BANNER, Config.AdmobID);
+		// 查询 LinearLayout (假设您已经提供)
+		// 属性是 android:id="@+id/mainLayout"
+		RelativeLayout layout = (RelativeLayout) findViewById(R.id.ad_Layout);
+		// 在其中加入 adView
+		layout.addView(adView);
+		// 启用泛用请求，并随广告一起载入
+		adView.loadAd(new AdRequest());
 	}
 
 	// @Override

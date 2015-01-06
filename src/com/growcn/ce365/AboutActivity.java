@@ -39,7 +39,6 @@ import android.widget.Toast;
 import com.google.ads.*;
 
 public class AboutActivity extends GrowcnBaseActivity {
-	private AdView adView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -47,20 +46,17 @@ public class AboutActivity extends GrowcnBaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_about);
 
-		ActivityUtil mActivityUtil = new ActivityUtil(this);
+		mActivityUtil = new ActivityUtil(this);
 		mActivityUtil.setBrowserBackButton();
 		mActivityUtil.setTitle(this.getString(R.string.action_about));
 
-		// 建立 adView
-		adView = new AdView(this, AdSize.BANNER,
-				"ca-app-pub-5268644918631082/4624855366");
-		// 查询 LinearLayout (假设您已经提供)
-		// 属性是 android:id="@+id/mainLayout"
-		RelativeLayout layout = (RelativeLayout) findViewById(R.id.ad_Layout);
-		// 在其中加入 adView
-		layout.addView(adView);
-		// 启用泛用请求，并随广告一起载入
-		adView.loadAd(new AdRequest());
+		initView();
+		loadAdMob();
 	}
 
+	private void initView() {
+
+	}
+
+	
 }

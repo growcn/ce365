@@ -40,7 +40,7 @@ public class LessonActivity extends GrowcnBaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_lesson);
 
-		ActivityUtil mActivityUtil = new ActivityUtil(this);
+		mActivityUtil = new ActivityUtil(this);
 		mActivityUtil.setBrowserSetting();
 
 		load_listview();

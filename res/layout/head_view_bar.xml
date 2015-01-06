@@ -22,7 +22,8 @@
                 android:layout_centerVertical="true"
                 android:text="@string/app_name"
                 android:textColor="#fff"
-                android:textSize="20dip" />
+                android:textSize="20dp"
+                android:textStyle="bold" />
 
             <com.loopj.android.image.SmartImageView
                 android:id="@+id/bar_back"
