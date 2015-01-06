@@ -82,7 +82,23 @@
                         -->
 
                     </LinearLayout>
-                    <!-- end -->
+                    <!-- 更新 -->
+
+                    <LinearLayout
+                        android:id="@+id/setting_upgrade"
+                        style="@style/setting_item_end" >
+
+                        <TextView
+                            android:id="@+id/upgrade_text"
+                            style="@style/setting_item_text"
+                            android:text="检查新版本" />
+
+                        <View
+                            android:layout_width="0.0dip"
+                            android:layout_height="1.0dip"
+                            android:layout_weight="1.0" />
+                        <!-- end -->
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>

@@ -77,7 +77,7 @@ public class RequestUpgradeSoft {
 	}
 
 	public void start() {
-		String requireUrl = ServerApi.uploadVerson(packageName);
+		String requireUrl = ServerApi.uploadVerson(mContext, packageName);
 		AsyncHttpClient client = new AsyncHttpClient();
 		client.get(requireUrl, new AsyncHttpResponseHandler() {
 			@Override

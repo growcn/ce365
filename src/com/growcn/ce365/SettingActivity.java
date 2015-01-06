@@ -64,6 +64,8 @@ public class SettingActivity extends GrowcnBaseActivity {
 	private void initView() {
 		TextView mVers = (TextView) findViewById(R.id.version_value);
 		LinearLayout ToAbout = (LinearLayout) findViewById(R.id.setting_about);
+		LinearLayout Upgrade = (LinearLayout) findViewById(R.id.setting_upgrade);
+
 		mVers.setText(new VersionUtils(mContext).getName());
 		ToAbout.setOnClickListener(new OnClickListener() {
 			@Override
@@ -71,6 +73,13 @@ public class SettingActivity extends GrowcnBaseActivity {
 				OpenIntent.about(mContext);
 			}
 		});
+		Upgrade.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				upgrade_app(true);
+			}
+		});
+
 	}
 
 }

@@ -1,19 +1,24 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/ad_Layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content" >
 
-    <!--
+    <RelativeLayout
+        android:id="@+id/ad_Layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <!--
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true" 
         android:layout_below="@+id/middle_Layout"
-    -->
-    <!--
+        -->
+        <!--
              <ImageView
             android:layout_width="fill_parent"
             android:layout_height="40dp"
             android:src="@drawable/bootstrap" />
-    -->
+        -->
+    </RelativeLayout>
 
 </RelativeLayout>

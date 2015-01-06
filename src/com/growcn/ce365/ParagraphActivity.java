@@ -5,6 +5,9 @@ import java.util.List;
 
 import org.apache.http.Header;
 
+import com.google.ads.AdRequest;
+import com.google.ads.AdSize;
+import com.google.ads.AdView;
 import com.growcn.ce365.adapter.LessonAdapter;
 import com.growcn.ce365.adapter.ParagraphAdapter;
 import com.growcn.ce365.base.ActivityUtil;
@@ -28,11 +31,13 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 public class ParagraphActivity extends GrowcnBaseActivity {
@@ -69,11 +74,33 @@ public class ParagraphActivity extends GrowcnBaseActivity {
 
 	private void load_listview() {
 		mListView = (ListView) findViewById(R.id.list_view_paragraph);
+		initAdvListview();
 		mAdapter = new ParagraphAdapter(this, mArrayList, mListView,
 				mPlay_control);
 		mListView.setAdapter(mAdapter);
 		// networkReques();
 		getLoactionDB();
+
+	}
+
+	// 广告view
+	private void initAdvListview() {
+		if (Config.isAdvModel) {
+			View ad_view = LayoutInflater.from(this).inflate(
+					R.layout.adv_admob, null);
+			// mListView.addHeaderView(ad_view);
+			mListView.addFooterView(ad_view);
+			// 建立 adView
+			adView = new AdView(this, AdSize.BANNER, Config.AdmobID);
+			// 查询 LinearLayout (假设您已经提供)
+			// 属性是 android:id="@+id/mainLayout"
+			RelativeLayout layout = (RelativeLayout) ad_view
+					.findViewById(R.id.ad_Layout);
+			// // 在其中加入 adView
+			layout.addView(adView);
+			// // 启用泛用请求，并随广告一起载入
+			adView.loadAd(new AdRequest());
+		}
 	}
 
 	private void initViewPlay() {

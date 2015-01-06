@@ -18,6 +18,7 @@ import com.growcn.ce365.plugin.upload_apk.RequestUpgradeSoft;
 import com.growcn.ce365.util.AppConstant.Config;
 import com.growcn.ce365.util.AppConstant.ServerApi;
 import com.growcn.ce365.util.OpenIntent;
+import com.growcn.ce365.util.ReadManifestUtil;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.image.SmartImageView;

@@ -54,15 +54,17 @@ public class GrowcnBaseActivity extends SwipeBackActivity {
 
 	// 载入广告
 	protected void loadAdMob() {
-		// 建立 adView
-		adView = new AdView(this, AdSize.BANNER, Config.AdmobID);
-		// 查询 LinearLayout (假设您已经提供)
-		// 属性是 android:id="@+id/mainLayout"
-		RelativeLayout layout = (RelativeLayout) findViewById(R.id.ad_Layout);
-		// 在其中加入 adView
-		layout.addView(adView);
-		// 启用泛用请求，并随广告一起载入
-		adView.loadAd(new AdRequest());
+		if (Config.isAdvModel) {
+			// 建立 adView
+			adView = new AdView(this, AdSize.BANNER, Config.AdmobID);
+			// 查询 LinearLayout (假设您已经提供)
+			// 属性是 android:id="@+id/mainLayout"
+			RelativeLayout layout = (RelativeLayout) findViewById(R.id.ad_Layout);
+			// 在其中加入 adView
+			layout.addView(adView);
+			// 启用泛用请求，并随广告一起载入
+			adView.loadAd(new AdRequest());
+		}
 	}
 
 	// @Override

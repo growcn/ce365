@@ -58,5 +58,4 @@ public class AboutActivity extends GrowcnBaseActivity {
 
 	}
 
-	
 }
