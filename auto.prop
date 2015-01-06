@@ -1,0 +1,10 @@
+#Tue, 06 Jan 2015 23:57:52 +0800
+
+build.last.is.packaging.debug=true
+
+auto.package=com.growcn.ce365
+auto.final.versionCode=6
+auto.final.versionName=0.0.1\u5185\u6d4b\u7248
+auto.project.tmp.dir=/Users/john/projects/android_workspace/CE365Tmp
+
+auto.umeng.channel=googlePlayStore
