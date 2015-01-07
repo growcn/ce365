@@ -29,14 +29,13 @@
                 android:id="@+id/title"
                 android:layout_width="200dip"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/headlineContent"
                 android:layout_alignParentTop="true"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="16dp"
                 android:singleLine="true"
                 android:text="这是标题"
                 android:textSize="16dp" />
-
+            <!-- android:layout_alignLeft="@+id/headlineContent" -->
             <!--
                  <com.loopj.android.image.SmartImageView
                 android:id="@+id/headlinePicture_url"
