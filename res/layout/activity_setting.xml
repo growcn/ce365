@@ -33,6 +33,44 @@
                     android:orientation="vertical"
                     android:padding="10.0dip" >
 
+                    <LinearLayout
+                        android:id="@+id/setting_offlinefile"
+                        style="@style/setting_item_head" >
+
+                        <TextView
+                            android:id="@+id/offlinefile"
+                            style="@style/setting_item_text"
+                            android:text="下载音频离线包" />
+
+                        <View
+                            android:layout_width="0.0dip"
+                            android:layout_height="1.0dip"
+                            android:layout_weight="1.0" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/setting_clear_cache"
+                        style="@style/setting_item_end" >
+
+                        <TextView
+                            android:id="@+id/clear_cache"
+                            style="@style/setting_item_text"
+                            android:text="清除缓存:" />
+
+                        <TextView
+                            android:id="@+id/clear_cache_value"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10.0dip" >
+
                     <!-- start -->
 
                     <LinearLayout
@@ -97,8 +135,9 @@
                             android:layout_width="0.0dip"
                             android:layout_height="1.0dip"
                             android:layout_weight="1.0" />
-                        <!-- end -->
                     </LinearLayout>
+                    <!-- end -->
+
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>

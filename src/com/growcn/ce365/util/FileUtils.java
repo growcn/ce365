@@ -9,14 +9,19 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.util.EncodingUtils;
 
+import com.growcn.ce365.util.AppConstant.Config;
+
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Environment;
 import android.util.Log;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
@@ -29,9 +34,11 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 public class FileUtils {
-	private final static String TAG = "GrowcnWord";
+	private final static String TAG = Config.TAG;
 
 	public static final String ENCODING_UTF8 = "UTF-8";
 
@@ -325,5 +332,51 @@ public class FileUtils {
 		}
 
 		return fileList;
+	}
+
+	/**
+	 * Unzip the zip file to target dir
+	 * 
+	 * @param zipFile
+	 * @param targetDir
+	 */
+	public static void Unzip(String zipFile, String targetDir) {
+		int SIZE = 4096; // buffer size: 4KB
+		String strEntry; // each zip entry name
+		try {
+			BufferedOutputStream dest = null; // buffer output stream
+			FileInputStream fis = new FileInputStream(zipFile);
+			ZipInputStream zis = new ZipInputStream(
+					new BufferedInputStream(fis));
+			ZipEntry entry; // each zip entry
+			while ((entry = zis.getNextEntry()) != null) {
+				try {
+					int count;
+					byte data[] = new byte[SIZE];
+					strEntry = entry.getName();
+
+					File entryFile = new File(targetDir + strEntry);
+					File entryDir = new File(entryFile.getParent());
+					if (!entryDir.exists()) {
+						entryDir.mkdirs();
+					}
+
+					FileOutputStream fos = new FileOutputStream(entryFile);
+					dest = new BufferedOutputStream(fos, SIZE);
+					while ((count = zis.read(data, 0, SIZE)) != -1) {
+						dest.write(data, 0, count);
+					}
+					dest.flush();
+					dest.close();
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}
+			zis.close();
+			File fileszipe = new File(zipFile);
+			fileszipe.delete();
+		} catch (Exception cwj) {
+			cwj.printStackTrace();
+		}
 	}
 }

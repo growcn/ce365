@@ -6,6 +6,7 @@
     <string name="action_settings">设置</string>
     <string name="action_about">关于</string>
     <string name="action_upgrade">更新</string>
+    <string name="action_download">下载</string>
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_paragraph">ParagraphActivity</string>
 

@@ -1,5 +1,6 @@
 package com.growcn.ce365;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,8 +19,10 @@ import com.growcn.ce365.service.PlayerService;
 import com.growcn.ce365.util.AppConstant;
 import com.growcn.ce365.util.AppConstant.ActivityParams;
 import com.growcn.ce365.util.AppConstant.Config;
+import com.growcn.ce365.util.AppConstant.Dir;
 import com.growcn.ce365.util.AppConstant.PlayerMsg;
 import com.growcn.ce365.util.AppConstant.ServerApi;
+import com.growcn.ce365.util.FileSizeUtil;
 import com.growcn.ce365.util.OpenIntent;
 import com.growcn.ce365.util.VersionUtils;
 import com.loopj.android.http.AsyncHttpClient;
@@ -28,6 +31,7 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -45,6 +49,8 @@ import com.google.ads.*;
 
 public class SettingActivity extends GrowcnBaseActivity {
 	private Context mContext;
+	// 进度条
+	public ProgressDialog dialog = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,16 +62,39 @@ public class SettingActivity extends GrowcnBaseActivity {
 		mActivityUtil.setBrowserBackButton();
 		mActivityUtil.setTitle(this.getString(R.string.action_settings));
 		// mActivityUtil.setBrowserSetting();
+	}
 
+	@Override
+	public void onResume() {
+		super.onResume();
 		initView();
 		loadAdMob();
 	}
 
 	private void initView() {
 		TextView mVers = (TextView) findViewById(R.id.version_value);
+		TextView mCacheSize = (TextView) findViewById(R.id.clear_cache_value);
 		LinearLayout ToAbout = (LinearLayout) findViewById(R.id.setting_about);
 		LinearLayout Upgrade = (LinearLayout) findViewById(R.id.setting_upgrade);
+		LinearLayout mClearCache = (LinearLayout) findViewById(R.id.setting_clear_cache);
+		LinearLayout mOfflineFile = (LinearLayout) findViewById(R.id.setting_offlinefile);
 
+		//
+		final String mp3_path = Dir.DLAudio();
+		double filesize = FileSizeUtil.getFileOrFilesSize(mp3_path,
+				FileSizeUtil.SIZETYPE_MB);
+		mCacheSize.setText(filesize + "MB");
+		mClearCache.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				ShowProgressBarDialog();
+				delAllFile(mp3_path);
+				CloseProgressBarDialog();
+				onResume();
+			}
+		});
+
+		//
 		mVers.setText(new VersionUtils(mContext).getName());
 		ToAbout.setOnClickListener(new OnClickListener() {
 			@Override
@@ -80,6 +109,84 @@ public class SettingActivity extends GrowcnBaseActivity {
 			}
 		});
 
+		mOfflineFile.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				OpenIntent.offlineDown(mContext);
+			}
+		});
+
+	}
+
+	/**
+	 * 删除文件夹
+	 * 
+	 * @param filePathAndName
+	 *            String 文件夹路径及名称 如c:/fqf
+	 * @param fileContent
+	 *            String
+	 * @return boolean
+	 */
+	public void delFolder(String folderPath) {
+		try {
+			delAllFile(folderPath); // 删除完里面所有内容
+			String filePath = folderPath;
+			filePath = filePath.toString();
+			java.io.File myFilePath = new java.io.File(filePath);
+			myFilePath.delete(); // 删除空文件夹
+
+		} catch (Exception e) {
+			System.out.println("删除文件夹操作出错");
+			e.printStackTrace();
+
+		}
+	}
+
+	/**
+	 * 删除文件夹里面的所有文件
+	 * 
+	 * @param path
+	 *            String 文件夹路径 如 c:/fqf
+	 */
+	public void delAllFile(String path) {
+		File file = new File(path);
+		if (!file.exists()) {
+			return;
+		}
+		if (!file.isDirectory()) {
+			return;
+		}
+		String[] tempList = file.list();
+		File temp = null;
+		for (int i = 0; i < tempList.length; i++) {
+			if (path.endsWith(File.separator)) {
+				temp = new File(path + tempList[i]);
+			} else {
+				temp = new File(path + File.separator + tempList[i]);
+			}
+			if (temp.isFile()) {
+				temp.delete();
+			}
+			if (temp.isDirectory()) {
+				delAllFile(path + "/" + tempList[i]);// 先删除文件夹里面的文件
+				delFolder(path + "/" + tempList[i]);// 再删除空文件夹
+			}
+		}
+	}
+
+	public void ShowProgressBarDialog() {
+		dialog = new ProgressDialog(this);
+		// dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+		// dialog.setIcon(R.drawable.ic_launcher);
+		// dialog.setTitle("正在加载...");
+		dialog.setMessage("正在清空... ...");
+		dialog.setIndeterminate(true);
+		dialog.setCancelable(false);
+		dialog.show();
+	}
+
+	public void CloseProgressBarDialog() {
+		dialog.dismiss();
 	}
 
 }
