@@ -23,6 +23,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -82,11 +83,17 @@ public class RequestUpgradeSoft {
 		client.get(requireUrl, new AsyncHttpResponseHandler() {
 			@Override
 			public void onSuccess(String response) {
-				// Log.e(Config.TAG, "update:" + response);
-				VersionCheck mVK = VersionCheck.parseJSON(response);
-				// Log.e(Config.TAG, ".mVK.code:" + mVK.code);
-				// int local_version = mVK.code
-				checkUpdate(mVK);
+				try {
+					// Log.e(Config.TAG, "update:" + response);
+					VersionCheck mVK = VersionCheck.parseJSON(response);
+					// Log.e(Config.TAG, ".mVK.code:" + mVK.code);
+					// int local_version = mVK.code
+					checkUpdate(mVK);
+				} catch (Exception e) {
+					// TODO: handle exception
+					Log.e(Config.TAG, "versionCheck error:" + e.getMessage());
+				}
+
 			}
 
 			@Override

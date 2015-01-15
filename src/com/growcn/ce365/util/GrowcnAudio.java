@@ -15,18 +15,26 @@ import android.util.Log;
 public class GrowcnAudio {
 	private static GrowcnAudio _instance = null;
 	private Context mContext;
+	private MediaPlayer mMediaPlayer;
 
 	public GrowcnAudio(Context context) {
 		this.mContext = context;
+		initMdeiaPlayer();
 	}
 
-	// initialize
-	synchronized public static GrowcnAudio getInstance(Context context) {
-		if (_instance == null) {
-			_instance = new GrowcnAudio(context);
+	private void initMdeiaPlayer() {
+		if (mMediaPlayer == null) {
+			mMediaPlayer = new MediaPlayer();
 		}
-		return _instance;
 	}
+
+	// // initialize
+	// synchronized public static GrowcnAudio getInstance(Context context) {
+	// if (_instance == null) {
+	// _instance = new GrowcnAudio(context);
+	// }
+	// return _instance;
+	// }
 
 	/**
 	 * 
@@ -47,7 +55,7 @@ public class GrowcnAudio {
 	public void onlinePlay(String url, String localPath, String DLname) {
 		String audio_url = Dir.DLAudio() + DLname;
 		if (new File(audio_url).exists()) {
-			GrowcnAudio.getInstance(mContext).play(audio_url);
+			play(audio_url);
 		} else {
 			down_and_play(url, localPath, DLname);
 		}
@@ -56,7 +64,7 @@ public class GrowcnAudio {
 	public void AuidoPath(String url, String localPath, String DLname) {
 		String audio_url = Dir.DLAudio() + DLname;
 		if (new File(audio_url).exists()) {
-			GrowcnAudio.getInstance(mContext).play(audio_url);
+			play(audio_url);
 		} else {
 			down_and_play(url, localPath, DLname);
 		}
@@ -66,29 +74,35 @@ public class GrowcnAudio {
 	 * 
 	 * 播放本地的mp3文件
 	 * 
-	 * 
-	 * @param audio_url
+	 * @param localFile
 	 *            本地mp3地址
-	 * 
-	 * 
 	 */
 	public void play(String localFile) {
-
-		try {
-			Uri load_file = Uri.parse(localFile);
-			MediaPlayer mp = MediaPlayer.create(mContext, load_file);
-			mp.setLooping(false);
-			mp.start();
-			mp.setOnCompletionListener(new OnCompletionListener() {
-				@Override
-				public void onCompletion(MediaPlayer mp) {
-					mp.stop();
-					mp.release();
-				}
-			});
-		} catch (Exception e) {
-			Log.e(Config.TAG, "playAudio:" + e.getMessage());
-			// showToast("找不到发音文件", "long");
+		initMdeiaPlayer();
+		if (mMediaPlayer != null) {
+			try {
+				/* 重置MediaPlayer */
+				mMediaPlayer.reset();
+				/* 设置要播放的文件的路径 */
+				mMediaPlayer.setDataSource(localFile);
+				/* 准备播放 */
+				mMediaPlayer.prepare();
+				/* 开始播放 */
+				mMediaPlayer.start();
+				mMediaPlayer
+						.setOnCompletionListener(new OnCompletionListener() {
+							@Override
+							public void onCompletion(MediaPlayer mp) {
+								mp.stop();
+								mp.release();
+								mp = null;
+								mMediaPlayer = null;
+							}
+						});
+			} catch (Exception e) {
+				Log.e(Config.TAG, "playAudio:" + e.getMessage());
+				// showToast("找不到发音文件", "long");
+			}
 		}
 	}
 

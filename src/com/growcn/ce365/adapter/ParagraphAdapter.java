@@ -44,6 +44,7 @@ public class ParagraphAdapter extends BaseAdapter {
 
 	private ImageView mPlay_control;
 	protected View.OnClickListener mOnClickListener;
+	private GrowcnAudio mGrowcnAudio;
 
 	public ParagraphAdapter(Activity mActivity, List<Paragraph> data,
 			ListView mListView, ImageView mPlay_control) {
@@ -53,18 +54,18 @@ public class ParagraphAdapter extends BaseAdapter {
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		this.data = data;
 		this.mListView = mListView;
-
+		mGrowcnAudio = new GrowcnAudio(mActivity);
 		this.mPlay_control = mPlay_control;
 		load_play();
 	}
 
 	public void load_play() {
-//		mPlay_control.setOnClickListener(new OnClickListener() {
-//			@Override
-//			public void onClick(View v) {
-//				play_word();
-//			}
-//		});
+		// mPlay_control.setOnClickListener(new OnClickListener() {
+		// @Override
+		// public void onClick(View v) {
+		// play_word();
+		// }
+		// });
 	}
 
 	public void play_word() {
@@ -120,8 +121,10 @@ public class ParagraphAdapter extends BaseAdapter {
 	}
 
 	private void DLplayAudio(String audio_url, final String dl_filename) {
-		GrowcnAudio.getInstance(mContext).onlinePlay(audio_url, Dir.DLAudio(),
-				dl_filename);
+		// GrowcnAudio.getInstance(mContext).onlinePlay(audio_url,
+		// Dir.DLAudio(),
+		// dl_filename);
+		mGrowcnAudio.onlinePlay(audio_url, Dir.DLAudio(), dl_filename);
 	}
 
 	public final class ViewHolder {

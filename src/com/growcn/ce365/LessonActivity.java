@@ -57,8 +57,12 @@ public class LessonActivity extends GrowcnBaseActivity {
 	}
 
 	public void getLoactionDB() {
-		List<Lesson> listLesson = LessonDb.findAll();
-		mArrayList.addAll(listLesson);
+		try {
+			List<Lesson> listLesson = LessonDb.findAll();
+			mArrayList.addAll(listLesson);
+		} catch (Exception e) {
+
+		}
 	}
 
 	// public void networkReques() {
