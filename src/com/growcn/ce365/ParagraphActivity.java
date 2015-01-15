@@ -25,11 +25,16 @@ import com.growcn.ce365.util.AppConstant.PlayerMsg;
 import com.growcn.ce365.util.AppConstant.ServerApi;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.umeng.analytics.MobclickAgent;
 
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.app.Activity;
+import android.app.Service;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -41,6 +46,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 public class ParagraphActivity extends GrowcnBaseActivity {
+	private PlayerService.MyBinder myBinder;
 
 	private ListView mListView;
 	private ParagraphAdapter mAdapter;
@@ -64,7 +70,13 @@ public class ParagraphActivity extends GrowcnBaseActivity {
 
 		initIntent();
 		initViewPlay();
+		initPlayerServer();
 		load_listview();
+	}
+
+	// @Override
+	public void onResume() {
+		super.onResume();
 	}
 
 	private void initIntent() {
@@ -108,20 +120,81 @@ public class ParagraphActivity extends GrowcnBaseActivity {
 		mPlay_control.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				play_list();
+				// play_list();
+				play_or_stop();
 			}
+
 		});
 	}
 
-	private void play_list() {
-		Log.e(Config.TAG, ".......sfsdfs");
-		Intent intent = new Intent();
-		intent.setClass(this, PlayerService.class);
-		intent.putExtra(ActivityParams.LessonUuid, lessonUuid);
-		intent.putExtra(ActivityParams.MSG, PlayerMsg.PLAY_MSG);
+	private void initPlayerServer() {
+		Intent intent = new Intent(this, PlayerService.class);
 		startService(intent);
-
+		bindService(intent, MyConn, BIND_AUTO_CREATE);
 	}
+
+	private Boolean flag = false;
+
+	private void unBind() {
+		if (flag == true) {
+			Log.i(Config.TAG, "BindService-->unBind()");
+			unbindService(MyConn);
+			flag = false;
+		}
+	}
+
+	private ServiceConnection MyConn = new ServiceConnection() {
+		@Override
+		public void onServiceConnected(ComponentName name, IBinder service) {
+			myBinder = (PlayerService.MyBinder) service;
+			flag = true;
+			setPlayBtnStat(myBinder.Status());
+		}
+
+		@Override
+		public void onServiceDisconnected(ComponentName name) {
+
+		}
+	};
+
+	private void setPlayBtnStat(int status) {
+		Log.e(Config.TAG, ".....status:" + status);
+		// || status == PlayerMsg.INIT_MSG
+		if (status == PlayerMsg.PLAY_MSG) {
+			mPlay_control.setImageDrawable(getResources().getDrawable(
+					R.drawable.pause));
+
+			// mPlay_control.setBackgroundDrawable(getResources().getDrawable(
+			// R.drawable.pause));
+		} else {
+			// mPlay_control.setBackgroundDrawable(getResources().getDrawable(
+			// R.drawable.play));
+			mPlay_control.setImageDrawable(getResources().getDrawable(
+					R.drawable.play));
+		}
+	}
+
+	private void play_or_stop() {
+		Log.e(Config.TAG, "LessonUuid......." + lessonUuid);
+		myBinder.play_or_stop(lessonUuid);
+		setPlayBtnStat(myBinder.Status());
+		Log.e(Config.TAG, "Status()......." + myBinder.Status());
+	}
+
+	@Override
+	protected void onDestroy() {
+		unBind();
+		super.onDestroy();
+	}
+
+	// private void play_list() {
+	// Log.e(Config.TAG, ".......sfsdfs");
+	// Intent intent = new Intent();
+	// intent.setClass(this, PlayerService.class);
+	// intent.putExtra(ActivityParams.LessonUuid, lessonUuid);
+	// intent.putExtra(ActivityParams.MSG, PlayerMsg.PLAY_MSG);
+	// startService(intent);
+	// }
 
 	public void getLoactionDB() {
 		List<Paragraph> listParagraphs = ParagraphDb.findAll(lessonUuid);

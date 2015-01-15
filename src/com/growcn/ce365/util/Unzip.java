@@ -29,6 +29,7 @@ import android.os.Message;
 public class Unzip implements Serializable {
 	private static final int SUCCESS = 1;
 	private static final int ERROR = 2;
+	private static final int PROGRESS = 3;
 	private OnUnzipListener mOnUnzipListener;
 
 	/**
@@ -66,6 +67,11 @@ public class Unzip implements Serializable {
 					dest = new BufferedOutputStream(fos, SIZE);
 					while ((count = zis.read(data, 0, SIZE)) != -1) {
 						dest.write(data, 0, count);
+
+						Message msg = Message.obtain();
+						msg.what = PROGRESS;
+						msg.obj = count;
+						handler.sendMessage(msg);
 					}
 					dest.flush();
 					dest.close();
@@ -94,6 +100,11 @@ public class Unzip implements Serializable {
 			case SUCCESS:
 				mOnUnzipListener.onSuccess();
 				break;
+
+			case PROGRESS:
+				mOnUnzipListener
+						.onProgress(Integer.parseInt(msg.obj.toString()));
+				break;
 			case ERROR:
 				mOnUnzipListener.onError(msg.obj.toString());
 				break;
@@ -121,6 +132,6 @@ public class Unzip implements Serializable {
 
 		public void onError(String msg);
 
-		// public void onError(); // 回调成功
+		public void onProgress(int percentage);
 	}
 }

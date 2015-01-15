@@ -5,42 +5,76 @@
     android:layout_height="fill_parent"
     android:background="@android:color/white" >
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5dip"
-        android:orientation="horizontal" >
+        android:layout_height="78dip"
+        android:layout_marginBottom="5dip" >
 
         <TextView
             android:id="@+id/tv_resouce_name"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:text="离线包"
+            android:textSize="20dp" />
 
-        <Button
+        <!--
+             <Button
             android:id="@+id/btn_unzip"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:onClick="startUnzip"
             android:text="解压" />
+        -->
+
+
+        <!--
+             <TextView
+            android:id="@+id/percentage_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/btn_start"
+            android:text="0%" />
+        -->
+
+        <ProgressBar
+            android:id="@+id/ProgressBar_load"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:maxHeight="6dp"
+            android:minHeight="6dp"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/btn_start"
-            android:layout_width="fill_parent"
+            android:layout_width="75dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="startDownload"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
             android:text="下载" />
+        <!-- android:onClick="startDownload" -->
 
         <Button
             android:id="@+id/btn_pause"
-            android:layout_width="fill_parent"
+            android:layout_width="75dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="pauseDownload"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
             android:text="暂停"
             android:visibility="gone" />
-    </LinearLayout>
+
+        <!-- android:onClick="pauseDownload" -->
+
+    </RelativeLayout>
 
 </RelativeLayout>

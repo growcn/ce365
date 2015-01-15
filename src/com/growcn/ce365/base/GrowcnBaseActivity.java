@@ -42,6 +42,8 @@ public class GrowcnBaseActivity extends SwipeBackActivity {
 			w = null;
 			mActivityUtil = null;
 		}
+		
+		
 
 		if (adView != null) {
 			AdView w = adView;

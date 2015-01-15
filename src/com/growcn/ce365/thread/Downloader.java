@@ -1,4 +1,4 @@
-package com.growcn.ce365.service;
+package com.growcn.ce365.thread;
 
 import java.io.File;
 import java.io.InputStream;
@@ -39,6 +39,10 @@ public class Downloader {
 		this.threadcount = threadcount;
 		this.mHandler = mHandler;
 		this.context = context;
+	}
+
+	public String getlocalfile() {
+		return localfile;
 	}
 
 	/**
@@ -175,9 +179,9 @@ public class Downloader {
 					randomAccessFile.write(buffer, 0, length);
 					compeleteSize += length;
 					// 更新数据库中的下载信息
-					Log.e(Config.TAG, "fileSize:" + fileSize
-							+ "|compeleteSize:" + compeleteSize + "|length:"
-							+ length);
+					// Log.e(Config.TAG, "fileSize:" + fileSize
+					// + "|compeleteSize:" + compeleteSize + "|length:"
+					// + length);
 					DownLoadDB.getInstance(context).updataInfos(threadId,
 							compeleteSize, urlstr);
 					// 用消息将下载信息传给进度条，对进度条进行更新

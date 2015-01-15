@@ -46,7 +46,6 @@ public class LessonActivity extends GrowcnBaseActivity {
 		load_listview();
 		// 检查升级
 		upgrade_app(false);
-
 	}
 
 	private void load_listview() {

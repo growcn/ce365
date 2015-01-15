@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.growcn.ce365.model.DownloadInfo;
+import com.growcn.ce365.util.AppConstant.Config;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 /**
  * 
@@ -16,6 +19,20 @@ import android.database.sqlite.SQLiteDatabase;
 public class DownLoadDB {
 	private static DownLoadDB dao = null;
 	private Context context;
+
+	public static String TABLE_NAME = "download_info";
+	private static final String fTag = Config.TAG + TABLE_NAME;
+
+	public static void create(SQLiteDatabase db) {
+		try {
+			db.execSQL("create table "
+					+ TABLE_NAME
+					+ "(_id integer PRIMARY KEY AUTOINCREMENT, thread_id integer, "
+					+ "start_pos integer, end_pos integer, compelete_size integer,url char)");
+		} catch (SQLException ex) {
+			Log.e(fTag, ex.toString());
+		}
+	}
 
 	private DownLoadDB(Context context) {
 		this.context = context;
@@ -31,7 +48,7 @@ public class DownLoadDB {
 	public SQLiteDatabase getConnection() {
 		SQLiteDatabase sqliteDatabase = null;
 		try {
-			sqliteDatabase = new DBHelper(context).getReadableDatabase();
+			sqliteDatabase = DBBaseHelper.getInstance().getReadableDatabase();
 		} catch (Exception e) {
 		}
 		return sqliteDatabase;

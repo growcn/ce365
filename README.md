@@ -1,3 +1,4 @@
+ant auto-release -DUMENG_CHANNEL=official
 
 
 自动渠道号打包 AntDemo

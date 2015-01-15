@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Environment;
 
 public class DBBaseHelper extends SQLiteOpenHelper {
-	private static final int DABABASE_VERSION = 1;
+	private static final int DABABASE_VERSION = 3;
 
 	public static final String DB_NAME = "ce365" + ".DB";
 	private static DBBaseHelper mInstance = null;
@@ -38,10 +38,35 @@ public class DBBaseHelper extends SQLiteOpenHelper {
 		// AccountDB.create(db);
 		LessonDb.create(db);
 		ParagraphDb.create(db);
+		DownLoadDB.create(db);
 	}
 
 	@Override
-	public void onUpgrade(SQLiteDatabase db, int arg1, int arg2) {
-		// TODO Auto-generated method stub
+	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+		// If you need to add a new column
+		if (newVersion > oldVersion) {
+			int upgradeTo = oldVersion + 1;
+			while (upgradeTo <= newVersion) {
+				switch (upgradeTo) {
+				case 3:
+					DownLoadDB.create(db);
+					break;
+				case 4:
+					// update jqk_tab set sort=-1,is_hide=0 where name = "前(Ｊ2)"
+
+					break;
+				case 9:
+					// update jqk_tab set sort=-1,is_hide=0 where name = "前(Ｊ2)"
+
+					break;
+				case 11:
+
+					break;
+				}
+
+				upgradeTo++;
+			}
+		}
+
 	}
 }
