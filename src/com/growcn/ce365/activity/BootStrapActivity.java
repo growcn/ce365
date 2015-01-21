@@ -157,23 +157,27 @@ public class BootStrapActivity extends GrowcnBaseActivity {
 		BookAll mBookAll = BookAll.parseJSON(response);
 		List<Lesson> lessons = mBookAll.lessons;
 
-		LessonDb.DeleteRedundant(lessons);
-		for (int i = 0; i < lessons.size(); i++) {
-			Lesson mLesson = lessons.get(i);
-			LessonDb.sync(mLesson);
-			// Log.e(Config.TAG, ">>>>>>>>>>" + mLesson.name);
+		try {
+			LessonDb.DeleteRedundant(lessons);
+			for (int i = 0; i < lessons.size(); i++) {
+				Lesson mLesson = lessons.get(i);
+				LessonDb.sync(mLesson);
+				// Log.e(Config.TAG, ">>>>>>>>>>" + mLesson.name);
 
-			List<Paragraph> paragraphs = mLesson.paragraphs;
+				List<Paragraph> paragraphs = mLesson.paragraphs;
 
-			if (paragraphs != null) {
-				for (int j = 0; j < paragraphs.size(); j++) {
-					Paragraph mParagraph = paragraphs.get(j);
-					ParagraphDb.sync(mLesson.uuid, mParagraph);
-					// Log.e(Config.TAG, ">>cgg>>>>>>>>" + mParagraph.name);
+				if (paragraphs != null) {
+					for (int j = 0; j < paragraphs.size(); j++) {
+						Paragraph mParagraph = paragraphs.get(j);
+						ParagraphDb.sync(mLesson.uuid, mParagraph);
+						// Log.e(Config.TAG, ">>cgg>>>>>>>>" + mParagraph.name);
+					}
 				}
+				//
+				ParagraphDb.DeleteRedundant(mLesson.uuid, paragraphs);
 			}
-			//
-			ParagraphDb.DeleteRedundant(mLesson.uuid, paragraphs);
+		} catch (Exception e) {
+			// TODO: handle exception
 		}
 
 	}
