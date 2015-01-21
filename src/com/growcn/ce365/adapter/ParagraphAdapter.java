@@ -11,6 +11,7 @@ import com.growcn.ce365.model.Paragraph;
 import com.growcn.ce365.service.PlayerService;
 import com.growcn.ce365.util.AppConstant.Config;
 import com.growcn.ce365.util.AppConstant.Dir;
+import com.growcn.ce365.util.AppConstant.ServerApi;
 import com.growcn.ce365.util.Download;
 import com.growcn.ce365.util.GrowcnAudio;
 import com.loopj.android.image.SmartImageView;
@@ -104,7 +105,7 @@ public class ParagraphAdapter extends BaseAdapter {
 		}
 
 		Paragraph mData = data.get(position);
-		final String audio_url = mData.audio_url;
+		final String audio_url = ServerApi.Audio(mData.uuid); // mData.audio_url;
 		final String DL_file_name = mData.uuid + ".mp3";
 		mViewHodler.mName.setText(mData.name);
 		mViewHodler.mTranslation.setText(mData.translation);
