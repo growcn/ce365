@@ -1,4 +1,4 @@
-package com.growcn.ce365;
+package com.growcn.ce365.activity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +8,10 @@ import org.apache.http.Header;
 import com.google.ads.AdRequest;
 import com.google.ads.AdSize;
 import com.google.ads.AdView;
+import com.growcn.ce365.R;
+import com.growcn.ce365.R.drawable;
+import com.growcn.ce365.R.id;
+import com.growcn.ce365.R.layout;
 import com.growcn.ce365.adapter.LessonAdapter;
 import com.growcn.ce365.adapter.ParagraphAdapter;
 import com.growcn.ce365.base.ActivityUtil;
@@ -64,11 +68,18 @@ public class ParagraphActivity extends GrowcnBaseActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_paragraph);
 
+		initIntent();
 		mActivityUtil = new ActivityUtil(this);
 		mActivityUtil.setBrowserBackButton();
 		mActivityUtil.setBrowserSetting();
 
-		initIntent();
+		if (lessonUuid != null) {
+			Lesson mLesson = LessonDb.FindByUuid(lessonUuid);
+			if (mLesson != null) {
+				mActivityUtil.setTitle(mLesson.name);
+			}
+		}
+
 		initViewPlay();
 		initPlayerServer();
 		load_listview();
@@ -77,6 +88,7 @@ public class ParagraphActivity extends GrowcnBaseActivity {
 	// @Override
 	public void onResume() {
 		super.onResume();
+
 	}
 
 	private void initIntent() {
@@ -197,8 +209,10 @@ public class ParagraphActivity extends GrowcnBaseActivity {
 	// }
 
 	public void getLoactionDB() {
-		List<Paragraph> listParagraphs = ParagraphDb.findAll(lessonUuid);
-		mArrayList.addAll(listParagraphs);
+		if (lessonUuid != null) {
+			List<Paragraph> listParagraphs = ParagraphDb.findAll(lessonUuid);
+			mArrayList.addAll(listParagraphs);
+		}
 	}
 
 	// public void networkReques() {

@@ -4,8 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.growcn.ce365.DownLoadActivity;
 import com.growcn.ce365.R;
+import com.growcn.ce365.activity.DownLoadActivity;
 import com.growcn.ce365.model.Lesson;
 import com.growcn.ce365.model.LoadInfo;
 import com.growcn.ce365.model.ResourceEntity;

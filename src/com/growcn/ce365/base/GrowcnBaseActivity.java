@@ -4,7 +4,9 @@ import com.google.ads.AdRequest;
 import com.google.ads.AdSize;
 import com.google.ads.AdView;
 import com.growcn.ce365.R;
+import com.growcn.ce365.db.DBBaseHelper;
 import com.growcn.ce365.plugin.swipeback.SwipeBackActivity;
+import com.growcn.ce365.plugin.swipeback.SwipeBackLayout;
 import com.growcn.ce365.plugin.upload_apk.RequestUpgradeSoft;
 import com.growcn.ce365.util.AppConstant.Config;
 import com.growcn.ce365.util.OpenIntent;
@@ -12,7 +14,9 @@ import com.umeng.analytics.MobclickAgent;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.RelativeLayout;
@@ -21,6 +25,12 @@ import android.widget.Toast;
 public class GrowcnBaseActivity extends SwipeBackActivity {
 	protected ActivityUtil mActivityUtil;
 	protected AdView adView;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+	}
 
 	// @Override
 	public void onResume() {
@@ -42,8 +52,6 @@ public class GrowcnBaseActivity extends SwipeBackActivity {
 			w = null;
 			mActivityUtil = null;
 		}
-		
-		
 
 		if (adView != null) {
 			AdView w = adView;

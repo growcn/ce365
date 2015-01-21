@@ -1,4 +1,4 @@
-package com.growcn.ce365;
+package com.growcn.ce365.activity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +6,8 @@ import java.util.Map;
 
 import org.apache.http.Header;
 
+import com.growcn.ce365.R;
+import com.growcn.ce365.R.layout;
 import com.growcn.ce365.adapter.LessonAdapter;
 import com.growcn.ce365.base.GrowcnBaseActivity;
 import com.growcn.ce365.db.DBBaseHelper;
@@ -53,8 +55,6 @@ public class BootStrapActivity extends GrowcnBaseActivity {
 		RequesBooks();
 		auto_index();
 
-		// 数库初始化
-		DBBaseHelper.init(this);
 		push_device_info();
 
 	}

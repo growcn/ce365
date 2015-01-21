@@ -1,4 +1,4 @@
-package com.growcn.ce365;
+package com.growcn.ce365.activity;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -6,6 +6,10 @@ import java.util.List;
 
 import org.apache.http.Header;
 
+import com.growcn.ce365.R;
+import com.growcn.ce365.R.id;
+import com.growcn.ce365.R.layout;
+import com.growcn.ce365.R.string;
 import com.growcn.ce365.adapter.LessonAdapter;
 import com.growcn.ce365.adapter.ParagraphAdapter;
 import com.growcn.ce365.base.ActivityUtil;
