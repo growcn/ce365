@@ -54,7 +54,6 @@ public class BootStrapActivity extends GrowcnBaseActivity {
 
 		RequesBooks();
 		auto_index();
-
 		push_device_info();
 
 	}
