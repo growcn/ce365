@@ -13,7 +13,7 @@ public class Ce365App extends Application {
 	@Override
 	public void onCreate() {
 		super.onCreate();
-
+		Log.e(Config.TAG, "init app");
 		// 数库初始化
 		try {
 			new DBBaseHelper(this, "create").createDataBase();

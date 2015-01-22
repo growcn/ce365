@@ -9,13 +9,14 @@ import java.io.OutputStream;
 import com.growcn.ce365.R;
 import com.growcn.ce365.util.AppConstant.Config;
 import com.growcn.ce365.util.AppConstant.Dir;
+import com.growcn.ce365.util.DbVersion;
+import com.growcn.ce365.util.Log;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Environment;
-import android.util.Log;
 
 public class DBBaseHelper extends SQLiteOpenHelper {
 	private static final int DABABASE_VERSION = 5;
@@ -93,8 +94,20 @@ public class DBBaseHelper extends SQLiteOpenHelper {
 	}
 
 	// ///////////////////////////////////////////
-
 	public void createDataBase() throws IOException {
+		Log.e(Config.TAG, "createDataBase.............");
+		// 检测是否要删除
+		DbVersion mDbVersion = new DbVersion(mContext);
+
+		Log.e(Config.TAG, "getVersion():" + mDbVersion.getVersion());
+
+		if (mDbVersion.isUpdate()) {
+			Log.e(Config.TAG, "deleteDataBase...true..");
+			deleteDataBase();
+		} else {
+			Log.e(Config.TAG, "deleteDataBase...false..");
+		}
+
 		boolean dbExist = checkDataBase();
 		if (dbExist) {
 			// 数据库已存在，do nothing.
@@ -112,12 +125,32 @@ public class DBBaseHelper extends SQLiteOpenHelper {
 				SQLiteDatabase.openOrCreateDatabase(dbf, null);
 				// 复制asseets中的db文件到DB_PATH下
 				copyDataBase();
+				mDbVersion.setCurrentVersion();
 			} catch (IOException e) {
 				// throw new Error("数据库创建失败");
 			}
 		}
 
 		init(mContext);
+	}
+
+	// 删除数据库
+	public void deleteDataBase() {
+
+		try {
+			File dir = new File(DB_PATH);
+			if (!dir.exists()) {
+				dir.mkdirs();
+			}
+			File dbf = new File(DB_PATH + DB_NAME);
+			if (dbf.exists()) {
+				dbf.delete();
+			}
+		} catch (Exception e) {
+			// throw new Error("数据库创建失败");
+			Log.e(Config.TAG, "deleteDataBase  error:" + e.getMessage());
+		}
+
 	}
 
 	@Override
@@ -162,8 +195,10 @@ public class DBBaseHelper extends SQLiteOpenHelper {
 	 * */
 	private void copyDataBase() throws IOException {
 		// Open your local db as the input stream
-		InputStream myInput = mContext.getResources().openRawResource(
-				R.raw.ce365);
+		// InputStream myInput = mContext.getResources().openRawResource(
+		// R.raw.ce365);
+		InputStream myInput = mContext.getAssets().open(DB_NAME);
+
 		// Path to the just created empty db
 		String outFileName = DB_PATH + DB_NAME;
 		// Open the empty db as the output stream

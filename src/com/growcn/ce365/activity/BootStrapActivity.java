@@ -51,11 +51,10 @@ public class BootStrapActivity extends GrowcnBaseActivity {
 		setSwipeBackEnable(false);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_bootstrap);
-
-		RequesBooks();
+		Log.e(Config.TAG, "...init....");
+		// RequesBooks();
 		auto_index();
 		push_device_info();
-
 	}
 
 	public void auto_index() {
@@ -177,6 +176,7 @@ public class BootStrapActivity extends GrowcnBaseActivity {
 				ParagraphDb.DeleteRedundant(mLesson.uuid, paragraphs);
 			}
 		} catch (Exception e) {
+			Log.e(Config.TAG, "sync_data error:" + e.getMessage());
 			// TODO: handle exception
 		}
 
