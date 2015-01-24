@@ -1,14 +1,18 @@
 
-##内置课程
-
-内置 四课
 
 
 ##Android场市
 
+[official](http://ce365.growcn.com)
+[view](http://ce365.growcn.com)
+[download](https://growcn.com/jdi/api/app/download?package_name=com.growcn.ce365)
+
 [360](http://dev.360.cn/mod/mobileapp/?appid=202239031&appType=soft)
+[view](http://zhushou.360.cn/detail/index/soft_id/2524383)
+[download](http://openbox.mobilem.360.cn/index/d/sid/2524383)
 
 [小米](http://dev.mi.com)
+[view](http://app.xiaomi.com/detail/82962)
 
 [豌豆荚](http://developer.wandoujia.com)
 
@@ -16,6 +20,7 @@
 
 [百度联盟](http://union.baidu.com/client/#/)
 
+[百度开发者](http://app.baidu.com/apps)
 ###
 
 ant auto-release -DUMENG_CHANNEL=official
