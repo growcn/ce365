@@ -1,3 +1,5 @@
+##方案
+
 
 
 
@@ -21,6 +23,13 @@
 [百度联盟](http://union.baidu.com/client/#/)
 
 [百度开发者](http://app.baidu.com/apps)
+### 更新
+
+* 2015年 1月24日 星期六 13时33分48秒 CST
+
+>> 升级友盟jar包
+
+
 ###
 
 ant auto-release -DUMENG_CHANNEL=official

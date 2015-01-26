@@ -13,5 +13,7 @@
     <dimen name="bg_row_padding_bottom">1.0dip</dimen>
     <!--  -->
     <dimen name="bg_row_border_width">0.5dip</dimen>
+    <!--  -->
+    <dimen name="web_view_title_height">48dp</dimen>
 
 </resources>

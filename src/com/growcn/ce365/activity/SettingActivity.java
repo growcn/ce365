@@ -79,6 +79,7 @@ public class SettingActivity extends GrowcnBaseActivity {
 		TextView mVers = (TextView) findViewById(R.id.version_value);
 		TextView mCacheSize = (TextView) findViewById(R.id.clear_cache_value);
 		LinearLayout ToAbout = (LinearLayout) findViewById(R.id.setting_about);
+		LinearLayout ToFeedback = (LinearLayout) findViewById(R.id.setting_feedback);
 		LinearLayout Upgrade = (LinearLayout) findViewById(R.id.setting_upgrade);
 		LinearLayout mClearCache = (LinearLayout) findViewById(R.id.setting_clear_cache);
 		LinearLayout mOfflineFile = (LinearLayout) findViewById(R.id.setting_offlinefile);
@@ -88,6 +89,8 @@ public class SettingActivity extends GrowcnBaseActivity {
 		double filesize = FileSizeUtil.getFileOrFilesSize(mp3_path,
 				FileSizeUtil.SIZETYPE_MB);
 		mCacheSize.setText(filesize + "MB");
+		mVers.setText(new VersionUtils(mContext).getName());
+
 		mClearCache.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -98,29 +101,36 @@ public class SettingActivity extends GrowcnBaseActivity {
 			}
 		});
 
-		//
-		mVers.setText(new VersionUtils(mContext).getName());
-		ToAbout.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				OpenIntent.about(mContext);
-			}
-		});
-		Upgrade.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				upgrade_app(true);
-			}
-		});
-
-		mOfflineFile.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				OpenIntent.offlineDown(mContext);
-			}
-		});
+		ToFeedback.setOnClickListener(MyOnClickListener);
+		ToAbout.setOnClickListener(MyOnClickListener);
+		Upgrade.setOnClickListener(MyOnClickListener);
+		mOfflineFile.setOnClickListener(MyOnClickListener);
 
 	}
+
+	View.OnClickListener MyOnClickListener = new OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			switch (v.getId()) {
+			case R.id.setting_feedback:
+				OpenIntent.feedback(SettingActivity.this);
+				break;
+			case R.id.setting_about:
+				OpenIntent.about(mContext);
+				break;
+			case R.id.setting_upgrade:
+				upgrade_app(true);
+				break;
+			case R.id.setting_offlinefile:
+				OpenIntent.offlineDown(mContext);
+				break;
+			default:
+				break;
+			}
+		}
+
+	};
 
 	/**
 	 * 删除文件夹

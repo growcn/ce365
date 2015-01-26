@@ -100,6 +100,9 @@ public class GrowcnBaseActivity extends SwipeBackActivity {
 		case R.id.action_upgrade:
 			upgrade_app(true);
 			break;
+		case R.id.action_feedback:
+			OpenIntent.feedback(this);
+			break;
 		}
 		return true;
 

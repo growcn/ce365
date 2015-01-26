@@ -46,6 +46,8 @@
                             android:layout_width="0.0dip"
                             android:layout_height="1.0dip"
                             android:layout_weight="1.0" />
+
+                        <ImageView style="@style/setting_arrow" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -74,8 +76,25 @@
                     <!-- start -->
 
                     <LinearLayout
-                        android:id="@+id/setting_about"
+                        android:id="@+id/setting_feedback"
                         style="@style/setting_item_head" >
+
+                        <TextView
+                            android:id="@+id/feedback_text"
+                            style="@style/setting_item_text"
+                            android:text="反馈(我想要新功能)" />
+
+                        <View
+                            android:layout_width="0.0dip"
+                            android:layout_height="1.0dip"
+                            android:layout_weight="1.0" />
+
+                        <ImageView style="@style/setting_arrow" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/setting_about"
+                        style="@style/setting_item_center" >
 
                         <TextView
                             android:id="@+id/about_text"
@@ -87,9 +106,7 @@
                             android:layout_height="1.0dip"
                             android:layout_weight="1.0" />
 
-                        <ImageView
-                            android:id="@+id/font_size_arrow"
-                            style="@style/setting_arrow" />
+                        <ImageView style="@style/setting_arrow" />
                     </LinearLayout>
                     <!-- 版本 -->
 
