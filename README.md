@@ -1,6 +1,18 @@
-##方案
+##文案
 
+com.growcn.ce365
 
+疯狂英语365
+
+tag: 英语,疯狂英语,口语,听力,学习
+
+描述: 
+
+简单易用，背单词不如用句子！实用名子，纠正发音！点播句子发音！循环播放！
+1.李阳老师真人发音，三种速度版！由慢到快，更适合跟读、模仿，更适合提高实际口语水平。
+2.支持音频离包下载！在无网络的时候，更好的利用零碎时间！
+
+[简转繁](http://www.aies.cn)
 
 
 ##Android场市
@@ -17,12 +29,18 @@
 [view](http://app.xiaomi.com/detail/82962)
 
 [豌豆荚](http://developer.wandoujia.com)
-
   * wandoujia
+
+[百度开发者](http://app.baidu.com/apps)
+
+[91](http://app.baidu.com/apps) [view](http://apk.91.com/Soft/Android/com.growcn.ce365.html)
+
+[安卓](http://app.baidu.com/apps) [view](http://apk.hiapk.com/appinfo/com.growcn.ce365)
+
+### 其它
 
 [百度联盟](http://union.baidu.com/client/#/)
 
-[百度开发者](http://app.baidu.com/apps)
 ### 更新
 
 * 2015年 1月24日 星期六 13时33分48秒 CST

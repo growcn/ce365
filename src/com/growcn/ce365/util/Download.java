@@ -351,7 +351,8 @@ public class Download implements Serializable {
 
 				InputStream in = response.getEntity().getContent();
 
-				byte[] bytes = new byte[1024];
+				// byte[] bytes = new byte[1024];
+				byte[] bytes = new byte[1024 * 1024];
 
 				int len = -1;
 
